@@ -1,111 +1,47 @@
-/**
- * Displays the contact form modal.
- */
-function showContactForm() {
-  // Renamed function
-  const form = document.getElementById("ContactModalContainer"); // Updated ID
-  if (form) {
-    form.style.display = "block";
-  }
+// These functions open and close the contact form
+function openForm() {
+    document.getElementById("myForm").style.display = "block";
 }
 
-/**
- * Hides the contact form modal.
- */
-function hideContactForm() {
-  // Renamed function
-  const form = document.getElementById("ContactModalContainer"); // Updated ID
-  if (form) {
-    form.style.display = "none";
-  }
+function closeForm() {
+    document.getElementById("myForm").style.display = "none";
 }
 
-// --- Slideshow Logic ---
-let currentSlideIndex = 1; // Renamed variable, use let
+// This function displays the first image in the slideshow when the page loads
+var slideIndex = 1;
+showSlides(slideIndex);
 
-// Initialize slideshow on load
-document.addEventListener("DOMContentLoaded", () => {
-  renderSlideshow(currentSlideIndex); // Renamed function call
-  // Add fade-in effect to body after resources load
-  document.body.classList.add("fade-in");
-});
-
-/**
- * Advances or retreats the slideshow by n slides.
- * @param {number} n - Number of slides to move (1 for next, -1 for previous).
- */
-function navigateSlides(n) {
-  // Renamed function
-  renderSlideshow((currentSlideIndex += n)); // Renamed function call
+// This function changes the slide when the left or right arrows are clicked
+function plusSlides(n) {
+    showSlides(slideIndex += n);
 }
 
-/**
- * Displays a specific slide based on its index (n).
- * @param {number} n - The index of the slide to display (1-based).
- */
-function selectSlide(n) {
-  // Renamed function
-  renderSlideshow((currentSlideIndex = n)); // Renamed function call
+// This function changes the slide when the dots are clicked
+function currentSlide(n) {
+    showSlides(slideIndex = n);
 }
 
-/**
- * Core function to display the correct slide and update indicators.
- * @param {number} n - The target slide index (1-based).
- */
-function renderSlideshow(n) {
-  // Renamed function
-  let i; // Declare loop variable
-  const slideElements = document.getElementsByClassName("SlideItem"); // Updated class name
-  const dotIndicators = document.getElementsByClassName("IndicatorDot"); // Updated class name
 
-  if (!slideElements.length || !dotIndicators.length) return; // Exit if elements not found
-
-  // Handle wrapping around the ends
-  if (n > slideElements.length) {
-    currentSlideIndex = 1; // Wrap to first slide
-  }
-  if (n < 1) {
-    currentSlideIndex = slideElements.length; // Wrap to last slide
-  }
-
-  // Hide all slides
-  for (i = 0; i < slideElements.length; i++) {
-    slideElements[i].style.display = "none";
-  }
-
-  // Deactivate all dots
-  for (i = 0; i < dotIndicators.length; i++) {
-    dotIndicators[i].className = dotIndicators[i].className.replace(
-      " active",
-      ""
-    );
-  }
-
-  // Display the current slide and activate its dot
-  slideElements[currentSlideIndex - 1].style.display = "block";
-  dotIndicators[currentSlideIndex - 1].className += " active";
-}
-
-// --- Close form on outside click ---
-// Use 'mousedown' for potentially better compatibility with modal interactions
-document.addEventListener(
-  "mousedown",
-  function (event) {
-    const contactForm = document.getElementById("ContactModalContainer"); // Updated ID
-    // Check if the form exists and is displayed
-    if (contactForm && contactForm.style.display === "block") {
-      // Check if the click target is the cancel button OR
-      // if the click target is outside the form itself AND outside any element that triggers the form
-      const isCancelButton = event.target.matches(".CloseButton"); // Updated class
-      const isOutsideForm = !event.target.closest(".ModalForm"); // Updated class
-      const isOutsideTrigger =
-        !event.target.closest(".ContactPopupButton") &&
-        !event.target.closest(".contact-trigger"); // Updated classes
-
-      if (isCancelButton || (isOutsideForm && isOutsideTrigger)) {
-        hideContactForm(); // Renamed function call
-      }
+function showSlides(n) {
+    var slides = document.getElementsByClassName("mySlides"); // This takes all elements with the class name "mySlides" and stores them in the variable array "slides"
+    var dots = document.getElementsByClassName("dot"); // This takes all elements with the class name "dot" and stores them in the variable array "dots"
+    if (n > slides.length) {slideIndex = 1}; // If n (the number passed into the function) is greater than the length of the array "slides", the slideIndex is set to 1
+    if (n < 1) {slideIndex = slides.length}; // If n (the number passed into the function) is less than 1, te slideIndex is set to the length of the array "slides"
+    for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none"; // This for loop takes each item in the array "slides" and sets the display to none
     }
-  },
-  false
-); // Use capture phase 'false'
+    for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", ""); // This for loop takes each item in the array "dots" and removes "active" which removes the active styling
+    }
+    slides[slideIndex - 1].style.display = "block"; // This displays the image in the slideshow
+    dots[slideIndex - 1].className += " active"; // This adds the active styling to the dot associated with the image
+}
+
+//add an event listener for any clicks on the website
+document.addEventListener("click", function(event){
+    if (event.target.matches(".cancel") || !event.target.closest(".form-popup") && !event.target.closest(".Pop_Up_Button") && !event.target.closest(".contact")
+    //here we state that if the click happens on the cancel button OR anywhere outside of the contact form AND the click does not happen on the contact button or any of the contact links then call the closeform function
+    ){
+        closeForm()
+    }
+}, false )
