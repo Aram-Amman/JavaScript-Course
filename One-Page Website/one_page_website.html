@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aram Amman</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+      header {
+        background-color: #538;
+        color: white;
+        padding: 12px 0;
+        text-align: center;
+        width: 100%;
+      }
+      nav ul {
+        list-style-type: none;
+        padding: 2px;
+      }
+      nav ul li {
+        display: inline;
+        margin-right: 30px;
+      }
+      nav ul li a {
+        color: white;
+        text-decoration: underline;
+      }
+      section {
+        padding: 20px;
+      }
+      footer {
+        background-color: #538;
+        color: white;
+        text-align: center;
+        padding: 10px 0;
+        position: static;
+        width: 100%;
+        bottom: 0;
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+        margin: 10px 0;
+        cursor: pointer;
+        border: 2px solid #ddd;
+        border-radius: 4px;
+        transition: 0.3s;
+      }
+      img:hover {
+        border-color: #538;
+      }
+      form {
+        margin: auto;
+      }
+      label {
+        display: block;
+        margin: 10px 0 5px;
+      }
+      input[type="text"],
+      input[type="email"] {
+        width: 80%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #538;
+        border-radius: 4px;
+      }
+      input[type="submit"] {
+        background-color: #538;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      iframe {
+        width: 100%;
+        height: 500px;
+      }
+
+      /* Lightbox styles */
+      .lightbox {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        justify-content: center;
+        align-items: center;
+      }
+
+      .lightbox img {
+        max-width: 90%;
+        max-height: 90%;
+      }
+
+      .lightbox .close {
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        font-size: 40px;
+        color: white;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Welcome to my one-page website</h1>
+      <nav>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#images">Images</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="#video">Video</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <section id="home">
+      <h2>About Me</h2>
+      <p>
+        Hi👋🏻 I'm Aram Amman in, This is my HTML and CSS one-page website!
+      </p>
+      <hr />
+      Check it out!
+    </section>
+
+    <section id="images">
+      <h2>Images</h2>
+      <img src="https://cdn.pixabay.com/photo/2012/11/28/10/35/rocket-launch-67646_1280.jpg" alt="Image 1" class="gallery-img" />
+      <img src="https://cdn.pixabay.com/photo/2012/11/28/10/35/rocket-launch-67646_1280.jpg" alt="Image 2" class="gallery-img" />
+    </section>
+
+    <section id="contact">
+      <h2>Contact Us</h2>
+      <form action="#" method="post">
+        <label for="name">Name:</label><br />
+        <input type="text" id="name" name="name" /><br />
+        <label for="email">Email:</label><br />
+        <input type="email" id="email" name="email" /><br />
+        <input type="submit" value="Submit" />
+      </form>
+    </section>
+
+    <section id="video">
+      <h2>Check this Video:</h2>
+      <iframe src="https://www.youtube.com/embed/fsQgc9pCyDU"
+        title="Mission: Impossible – The Final Reckoning | Official Trailer (2025 Movie) - Tom Cruise"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen>
+      </iframe>
+    </section>
+
+    <footer>
+      <p>&copy; 2025 Aram. All rights reserved.</p>
+    </footer>
+
+    <!-- Lightbox Modal -->
+    <div class="lightbox" id="lightbox">
+      <span class="close" id="lightboxClose">&times;</span>
+      <img id="lightboxImage" src="" alt="Expanded Image" />
+    </div>
+
+    <script>
+      // JS for Lightbox
+      const images = document.querySelectorAll('.gallery-img');
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightboxImage');
+      const lightboxClose = document.getElementById('lightboxClose');
+
+      images.forEach((img) => {
+        img.addEventListener('click', () => {
+          lightboxImg.src = img.src;
+          lightbox.style.display = 'flex';
+        });
+      });
+
+      lightboxClose.addEventListener('click', () => {
+        lightbox.style.display = 'none';
+      });
+
+      lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox || e.target === lightboxImg) return;
+        lightbox.style.display = 'none';
+      });
+    </script>
+  </body>
+</html>
